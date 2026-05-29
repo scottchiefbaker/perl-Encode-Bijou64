@@ -4,8 +4,10 @@ use strict;
 use warnings;
 use Exporter qw(import);
 
-our @EXPORT  = qw( encode_bijou64 decode_bijou64);
-our $VERSION = '0.01';
+our @EXPORT = qw(encode_bijou64 decode_bijou64);
+
+# https://blogs.perl.org/users/grinnz/2018/04/a-guide-to-versions-in-perl.html
+our $VERSION = 'v0.1.1';
 
 ################################################################################
 ################################################################################
