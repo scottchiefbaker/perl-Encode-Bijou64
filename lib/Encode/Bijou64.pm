@@ -64,7 +64,7 @@ sub encode_bijou64 {
 		}
 	}
 
-	die "encode_bijou64(): integer too large";
+	die "encode_bijou64(): integer $n too large";
 }
 
 sub decode_bijou64 {
