@@ -7,7 +7,7 @@ WriteMakefile(
     AUTHOR           => 'Scott Baker',
     VERSION_FROM     => 'lib/Encode/Bijou64.pm',
     ABSTRACT_FROM    => 'lib/Encode/Bijou64.pm',
-    LICENSE          => 'perl_5',
+    LICENSE          => 'gpl_3',
     PL_FILES         => {},
     MIN_PERL_VERSION => '5.016', # Consistent with example.pl
     CONFIGURE_REQUIRES => {
