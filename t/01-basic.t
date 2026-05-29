@@ -127,6 +127,9 @@ eval { decode_bijou64(pack("C", 0xF8)) };
 like($@, qr/decode_bijou64\(\): buffer too short/, 'decode_bijou64 with short buffer (1 byte instead of 2) throws error');
 
 eval { decode_bijou64(pack("C*", 0xF8, 0x01, 0x02)) };
-like($@, qr/decode_bijou64\(\): buffer too short/, 'decode_bijou64 with long buffer (3 bytes instead of 2) throws error');
+like($@, qr/decode_bijou64\(\): buffer too long/, 'decode_bijou64 with long buffer (3 bytes instead of 2) throws error');
+
+eval { decode_bijou64(pack("C*", 0x05, 0xAA, 0xBB, 0xCC, 0xDD)) };
+like($@, qr/decode_bijou64\(\): buffer too long/, 'decode_bijou64 with trailing bytes on single-byte tag throws error');
 
 done_testing();
