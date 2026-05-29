@@ -8,16 +8,23 @@ use Encode::Bijou64;
 ###############################################################################
 ###############################################################################
 
+printf("Encode => Decode roundtrip testing using %s %s\n\n",
+	color('white_bold', "Encode::Bijou64"),
+	color(228, $Encode::Bijou64::VERSION),
+);
+
 for my $n (0, 247, 248, 300, 65535, 1234567890, 12039810293801983) {
     my $enc = encode_bijou64($n);
 	my $dec = decode_bijou64($enc);
-	my $res = color('red', "FAIL");
+	my $res = "";
 
 	if ($n == $dec) {
-		$res = color('green', ' OK ');
+		$res = color('white', '[') . color('green_bold', ' OK ') . color('white', ']');
+	} else {
+		$res = color('white', '[') . color('red_bold', 'FAIL') . color('white', ']');
 	}
 
-	printf("%20d => %-20s (%d bytes) => %20d %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
+	printf("%20d => %-20s (%d bytes) => %20d  %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
 }
 
 ###############################################################################
