@@ -50,7 +50,13 @@ sub encode_bijou64 {
 	for my $tier (@TIERS) {
 		my ($tag, $bytes, $base) = @$tier;
 
-		my $max = $base + (1 << ($bytes * 8)) - 1;
+		my $max = 0;
+		if ($bytes < 8) {
+			# One less than the starting point of the NEXT tier
+			$max = $base + (1 << ($bytes * 8)) - 1;
+		} else {
+			$max = 18446744073709551615; # 2^64-1
+		}
 
 		if ($n <= $max) {
 			my $v   = $n - $base;
