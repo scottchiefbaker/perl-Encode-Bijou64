@@ -117,12 +117,6 @@ eval { decode_bijou64("") };
 like($@, qr/decode_bijou64\(\): empty buffer/, 'decode_bijou64("") throws error');
 
 # 5. Invalid tags
-# Valid tags are <= 0xF7 (direct) and 0xF8 .. 0xFF.
-# Let's see: all 8-bit values are theoretically valid tags since 0x00..0xF7 are <= 0xF7, and 0xF8..0xFF map to the 8 tiers.
-# What about a tag that doesn't exist? Since tiers cover 0xF8 to 0xFF, there actually are no invalid tags in a single-byte range,
-# but let's double check if there are other edge cases.
-# If we supply a tag and the buffer length is too short or too long:
-# E.g. Tag 0xF8 expects 1 extra byte (total 2 bytes). Let's give it just 1 byte (the tag itself) or 3 bytes.
 eval { decode_bijou64(pack("C", 0xF8)) };
 like($@, qr/decode_bijou64\(\): buffer too short/, 'decode_bijou64 with short buffer (1 byte instead of 2) throws error');
 
