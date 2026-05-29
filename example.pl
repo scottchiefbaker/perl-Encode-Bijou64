@@ -24,7 +24,7 @@ for my $n (0, 247, 248, 300, 65535, 1234567890, 12039810293801983, 1343708892531
 		$res = color('white', '[') . color('red_bold', 'FAIL') . color('white', ']');
 	}
 
-	printf("%20u => %-20s (%d bytes) => %20u  %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
+	printf("%20u => 0x%-19s (%d bytes) => %20u  %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
 }
 
 ###############################################################################
