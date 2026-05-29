@@ -13,7 +13,7 @@ printf("Encode => Decode roundtrip testing using %s %s\n\n",
 	color(228, $Encode::Bijou64::VERSION),
 );
 
-for my $n (0, 247, 248, 300, 65535, 1234567890, 12039810293801983) {
+for my $n (0, 247, 248, 300, 65535, 1234567890, 12039810293801983, 13437088925319495680) {
     my $enc = encode_bijou64($n);
 	my $dec = decode_bijou64($enc);
 	my $res = "";
@@ -24,7 +24,7 @@ for my $n (0, 247, 248, 300, 65535, 1234567890, 12039810293801983) {
 		$res = color('white', '[') . color('red_bold', 'FAIL') . color('white', ']');
 	}
 
-	printf("%20d => %-20s (%d bytes) => %20d  %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
+	printf("%20u => %-20s (%d bytes) => %20u  %s\n", $n, unpack("H*", $enc), length($enc), $dec, $res);
 }
 
 ###############################################################################
