@@ -41,7 +41,10 @@ if ($has_64bit) {
 		1103823438328, 282578800148983,
 
 		# Tier 7 (282578800148984 to 72340172838076919): Tag 0xFE + 7 bytes
-		282578800148984, 12039810293801983, 72340172838076919
+		282578800148984, 12039810293801983, 72340172838076919,
+
+		# Tier 8 (72340172838076920 to ~0): Tag 0xFF + 8 bytes
+		72340172838076920, 1229884743860994276, 9223372036854775807, ~0
 	);
 }
 
@@ -76,6 +79,9 @@ for my $n (@test_cases) {
 	} elsif ($n <= 72340172838076919) {
 		is($len, 8, "Tier 7 value $n encoded to 8 bytes");
 		is(ord(substr($enc, 0, 1)), 0xFE, "Tier 7 tag is 0xFE");
+	} else {
+		is($len, 9, "Tier 8 value $n encoded to 9 bytes");
+		is(ord(substr($enc, 0, 1)), 0xFF, "Tier 8 tag is 0xFF");
 	}
 
 	my $dec = eval { decode_bijou64($enc) };
