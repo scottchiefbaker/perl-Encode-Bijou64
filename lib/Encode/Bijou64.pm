@@ -88,6 +88,10 @@ sub decode_bijou64 {
 
 	# Short/simple decode
 	if ($tag <= 0xF7) {
+		if (length($buf) > 1) {
+			die("decode_bijou64(): buffer too long");
+		}
+
 		return $tag;
 	}
 
@@ -100,8 +104,11 @@ sub decode_bijou64 {
 
 	my ($bytes, $base) = @$tier;
 
-	if (length($buf) != 1 + $bytes) {
+	if (length($buf) < 1 + $bytes) {
 		die("decode_bijou64(): buffer too short");
+	}
+	if (length($buf) > 1 + $bytes) {
+		die("decode_bijou64(): buffer too long");
 	}
 
 	my $v = 0;
