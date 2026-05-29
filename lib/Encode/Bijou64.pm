@@ -84,11 +84,12 @@ sub decode_bijou64 {
 		die("decode_bijou64(): empty buffer");
 	}
 
-	my $tag = ord substr($buf, 0, 1);
+	my $tag        = ord(substr($buf, 0, 1));
+	my $output_len = length($buf);
 
 	# Short/simple decode
 	if ($tag <= 0xF7) {
-		if (length($buf) > 1) {
+		if ($output_len > 1) {
 			die("decode_bijou64(): buffer too long");
 		}
 
@@ -103,12 +104,17 @@ sub decode_bijou64 {
 	}
 
 	my ($bytes, $base) = @$tier;
+	my $target_size    = $bytes + 1;
 
-	if (length($buf) < 1 + $bytes) {
-		die("decode_bijou64(): buffer too short");
-	}
-	if (length($buf) > 1 + $bytes) {
-		die("decode_bijou64(): buffer too long");
+	# Make sure our output matches the size we're expecting
+	if ($output_len != $target_size) {
+
+		# We should only make it here if the input data is invalid
+		if ($output_len < $target_size) {
+			die("decode_bijou64(): buffer too short");
+		} elsif ($output_len > $target_size) {
+			die("decode_bijou64(): buffer too long");
+		}
 	}
 
 	my $v = 0;
@@ -116,7 +122,9 @@ sub decode_bijou64 {
 		$v = ($v << 8) | ord(substr($buf, 1 + $i, 1));
 	}
 
-	return $base + $v;
+	my $ret = $base + $v;
+
+	return $ret;
 }
 
 1;
