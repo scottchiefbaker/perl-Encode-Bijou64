@@ -8,6 +8,16 @@ WriteMakefile(
     VERSION_FROM     => 'lib/Encode/Bijou64.pm',
     ABSTRACT_FROM    => 'lib/Encode/Bijou64.pm',
     LICENSE          => 'gpl_3',
+    META_MERGE       => {
+        'meta-spec' => { version => 2 },
+        resources   => {
+            repository => {
+                type => 'git',
+                url  => 'https://github.com/scottchiefbaker/perl-Encode-Bijou64.git',
+                web  => 'https://github.com/scottchiefbaker/perl-Encode-Bijou64',
+            },
+        },
+    },
     PL_FILES         => {},
     MIN_PERL_VERSION => '5.016', # Consistent with example.pl
     CONFIGURE_REQUIRES => {
