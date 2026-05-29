@@ -21,11 +21,11 @@ efficient decoding.
 
 ## Functions
 
-### Encode\_bijou64($Integer)
+### encode\_bijou64($integer)
 
 Encodes a non-negative integer into a Bijou64 byte string.
 
-### Decode\_bijou64($Bytes)
+### decode\_bijou64($bytes)
 
 Decodes a Bijou64 byte string and returns the integer value.
 
