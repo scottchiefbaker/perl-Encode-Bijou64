@@ -26,11 +26,7 @@ WriteMakefile(
     BUILD_REQUIRES => {
         'Test::More' => '0',
     },
-    PREREQ_PM => {
-        'Exporter' => '0',
-        'strict'   => '0',
-        'warnings' => '0',
-    },
+    PREREQ_PM => {},
     dist  => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean => { FILES => 'Encode-Bijou64-*' },
 );
