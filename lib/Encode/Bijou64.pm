@@ -3,6 +3,7 @@ package Encode::Bijou64;
 use strict;
 use warnings;
 use Exporter qw(import);
+use Carp qw(croak);
 
 our @EXPORT = qw(encode_bijou64 decode_bijou64);
 
@@ -37,11 +38,11 @@ sub encode_bijou64 {
 	my ($n) = @_;
 
 	if (!defined($n)) {
-		die("encode_bijou64(): undefined value");
+		croak("encode_bijou64(): undefined value");
 	}
 
 	if ($n !~ /^\d+\z/) {
-		die("encode_bijou64(): positive integer required");
+		croak("encode_bijou64(): positive integer required");
 	}
 
 	return pack("C", $n)
@@ -70,18 +71,18 @@ sub encode_bijou64 {
 		}
 	}
 
-	die "encode_bijou64(): integer $n too large";
+	croak("encode_bijou64(): integer $n too large");
 }
 
 sub decode_bijou64 {
 	my ($buf) = @_;
 
 	if (!defined($buf)) {
-		die("decode_bijou64(): undefined value");
+		croak("decode_bijou64(): undefined value");
 	}
 
 	if (!length($buf)) {
-		die("decode_bijou64(): empty buffer");
+		croak("decode_bijou64(): empty buffer");
 	}
 
 	my $tag        = ord(substr($buf, 0, 1));
@@ -90,7 +91,7 @@ sub decode_bijou64 {
 	# Short/simple decode
 	if ($tag <= 0xF7) {
 		if ($output_len > 1) {
-			die("decode_bijou64(): buffer too long");
+			croak("decode_bijou64(): buffer too long");
 		}
 
 		return $tag;
@@ -100,7 +101,7 @@ sub decode_bijou64 {
 
 	if (!$tier) {
 		my $msg = sprintf("decode_bijou64(): invalid tag 0x%02X", $tag);
-		die($msg);
+		croak($msg);
 	}
 
 	my ($bytes, $base) = @$tier;
@@ -111,9 +112,9 @@ sub decode_bijou64 {
 
 		# We should only make it here if the input data is invalid
 		if ($output_len < $target_size) {
-			die("decode_bijou64(): buffer too short");
+			croak("decode_bijou64(): buffer too short");
 		} elsif ($output_len > $target_size) {
-			die("decode_bijou64(): buffer too long");
+			croak("decode_bijou64(): buffer too long");
 		}
 	}
 
