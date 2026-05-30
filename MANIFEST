@@ -5,3 +5,5 @@ lib/Encode/Bijou64.pm
 t/00-load.t
 t/01-basic.t
 README.md
+LICENSE
+release-notes.md
